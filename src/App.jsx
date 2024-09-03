@@ -1,6 +1,17 @@
-import { RecipeListPage } from './pages/RecipeListPage';
+import { useState } from "react";
+import { RecipePage } from "./pages/RecipePage";
+import { RecipeListPage } from "./pages/RecipeListPage";
 
 export const App = () => {
-  // Your state code here
-  return <RecipeListPage />;
+  const [selectedRecipe, setSelectedRecipe] = useState();
+
+  return (
+    <div>
+      {selectedRecipe ? (
+        <RecipePage recipe={selectedRecipe} clickFn={setSelectedRecipe} />
+      ) : (
+        <RecipeListPage clickFn={setSelectedRecipe} />
+      )}
+    </div>
+  );
 };

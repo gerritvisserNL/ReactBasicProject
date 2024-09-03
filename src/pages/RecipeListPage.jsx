@@ -1,13 +1,32 @@
-import { Center, Heading } from '@chakra-ui/react';
-import { data } from '../utils/data';
+import { data } from "../utils/data";
+import { RecipeListCard } from "../components/RecipeListCard";
+import { Center, Heading, Box } from "@chakra-ui/react";
+import { TextInput } from "../components/ui/TextInput";
 
-export const RecipeListPage = () => {
-  // You can play around with the console log, but ultimately remove it once you are done
-  console.log(data.hits[0].recipe.label);
+export const RecipeListPage = ({ clickFn }) => {
+  const recipes = data.hits.map((hit) => hit.recipe);
 
   return (
-    <Center h="100vh" flexDir="column">
-      <Heading>Your Recipe App</Heading>
+    <Center display="flex" flexDir="column" bgColor="blue.300" gap="8">
+      <Heading>Recipe Checker</Heading>
+      <TextInput width={300} placeholder="Search recipes" />
+      <Box
+        display="flex"
+        flexDir={{ base: "column", md: "row" }}
+        flexWrap="wrap"
+        gap="8"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {recipes.map((recipe) => (
+          <RecipeListCard
+            key={recipe.label}
+            clickFn={clickFn}
+            recipe={recipe}
+          />
+        ))}
+      </Box>
+      <Box h="1rem" />
     </Center>
   );
 };
