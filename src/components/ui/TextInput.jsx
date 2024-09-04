@@ -6,6 +6,8 @@ export const TextInput = ({ changeFn, ...props }) => {
       backgroundColor="white"
       variant="outline"
       onChange={changeFn}
+      w={320}
+      placeholder="Search recipes"
       {...props}
     />
   );

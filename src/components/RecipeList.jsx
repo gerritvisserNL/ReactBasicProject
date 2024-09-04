@@ -1,19 +1,24 @@
-import { Flex } from "@chakra-ui/react";
-import { DrinkItem } from "./DrinkItem";
+import { data } from "../utils/data";
+import { Box } from "@chakra-ui/react";
+import { RecipeListCard } from "./RecipeListCard";
 
-export const RecipeList = ({ drinks, clickFn }) => {
+export const RecipeList = ({ matchedRecipes, clickFn }) => {
+  const recipes = matchedRecipes
+    ? matchedRecipes
+    : data.hits.map((hit) => hit.recipe);
+
   return (
-    <Flex
-      gap={16}
-      w={["full", "75%"]}
+    <Box
+      display="flex"
+      flexDir={{ base: "column", md: "row" }}
       flexWrap="wrap"
-      flexDir={["column", "row"]}
-      justify="center"
+      gap="8"
+      justifyContent="center"
       alignItems="center"
     >
-      {drinks.map((drink) => (
-        <DrinkItem key={drink.id} drink={drink} clickFn={clickFn} />
+      {recipes.map((recipe) => (
+        <RecipeListCard key={recipe.label} clickFn={clickFn} recipe={recipe} />
       ))}
-    </Flex>
+    </Box>
   );
 };

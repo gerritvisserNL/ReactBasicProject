@@ -20,7 +20,14 @@ export const RecipeListCard = ({ recipe, clickFn }) => {
       cursor="pointer"
       _hover={{ transform: "scale(1.01)" }}
     >
-      <CardBody display="flex" flexDirection="column" alignItems="center" p="0">
+      <CardBody
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        p="0"
+        backgroundColor="white"
+        borderRadius="xl"
+      >
         <Box w="100%" h="11rem" overflow="hidden" borderTopRadius="xl">
           <Image
             src={recipe.image}
