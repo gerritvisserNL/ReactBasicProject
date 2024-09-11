@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Center,
   Box,
@@ -11,9 +12,25 @@ import {
 import { BackButton } from "../components/ui/BackButton";
 
 export const RecipePage = ({ recipe, clickFn }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <Center bgColor="blue.100" flexDirection="column">
-      <Box w={{ base: "100%", md: "60%" }} bgColor="white" height="100%">
+    <Center
+      bgColor="blue.100"
+      flexDirection="column"
+      justifyContent="flex-start"
+      minHeight="100vh"
+      paddingBottom="1rem"
+    >
+      <Box
+        w={{ base: "100%", md: "60%" }}
+        bgColor="white"
+        borderRadius="1rem"
+        boxShadow="lg"
+        mt="1rem"
+      >
         <Flex direction="row" alignItems="center" justifyContent="center">
           <Box flex="1">
             <BackButton onClick={() => clickFn()} mr="auto" />
@@ -81,32 +98,40 @@ export const RecipePage = ({ recipe, clickFn }) => {
           <Box flex={1} width="50%">
             <Stack>
               <Text>Health labels</Text>
-              <Flex display="flex" flexDir="row" flexWrap="wrap" gap="0.5rem">
+              <Flex flexDir="row" flexWrap="wrap" gap="0.5rem">
                 {recipe.healthLabels.map((healthLabel, index) => (
                   <Tag key={index} bgColor="purple.300">
                     {healthLabel}
                   </Tag>
                 ))}
               </Flex>
-              <Text>Diet:</Text>
-              <Flex display="flex" flexDir="row" flexWrap="wrap" gap="0.5rem">
-                {recipe.dietLabels.map((dietLabel, index) => (
-                  <Tag key={index} bgColor="green.300">
-                    {dietLabel}
-                  </Tag>
-                ))}
-              </Flex>
-              <Text>Cautions:</Text>
-              <Flex display="flex" flexDir="row" flexWrap="wrap" gap="0.5rem">
-                {recipe.cautions.map((caution, index) => (
-                  <Tag key={index} bgColor="red.300">
-                    {caution}
-                  </Tag>
-                ))}
-              </Flex>
+              {recipe && recipe.dietLabels && recipe.dietLabels.length > 0 && (
+                <>
+                  <Text>Diet:</Text>
+                  <Flex flexDir="row" flexWrap="wrap" gap="0.5rem">
+                    {recipe.dietLabels.map((dietLabel, index) => (
+                      <Tag key={index} bgColor="green.300">
+                        {dietLabel}
+                      </Tag>
+                    ))}
+                  </Flex>
+                </>
+              )}
+              {recipe && recipe.cautions && recipe.cautions.length > 0 && (
+                <>
+                  <Text>Cautions:</Text>
+                  <Flex flexDir="row" flexWrap="wrap" gap="0.5rem">
+                    {recipe.cautions.map((caution, index) => (
+                      <Tag key={index} bgColor="red.300">
+                        {caution}
+                      </Tag>
+                    ))}
+                  </Flex>
+                </>
+              )}
               <Text>Total nutrients:</Text>
 
-              <Flex display="flex" flexDir="row" flexWrap="wrap">
+              <Flex flexDir="row" flexWrap="wrap">
                 {["ENERC_KCAL", "CHOCDF", "PROCNT", "FAT", "CHOLE", "NA"].map(
                   (chemAbbr) => {
                     let nutrien = recipe.totalNutrients[chemAbbr];

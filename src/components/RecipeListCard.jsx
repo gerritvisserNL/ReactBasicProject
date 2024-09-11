@@ -75,7 +75,7 @@ export const RecipeListCard = ({ recipe, clickFn }) => {
             </Text>
           </Text>
 
-          {recipe.cautions && (
+          {recipe && recipe.cautions && recipe.cautions.length > 0 && (
             <>
               <Text>Cautions:</Text>
               <Flex
